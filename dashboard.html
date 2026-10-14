@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NovaCart Pipeline Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js"></script>
+<style>
+  :root { color-scheme: light }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+  body { font-family: 'IBM Plex Sans', Helvetica, Arial, sans-serif; background: #f4f4f4; color: #161616 }
+  a { color: #0F62FE }
+
+  /* header */
+  .header { background: #001D6C; color: #fff; padding: 20px 32px; display: flex; align-items: baseline; gap: 24px }
+  .header h1 { font-size: 22px; font-weight: 600 }
+  .header .sub { font-size: 13px; color: #A6C8FF }
+
+  /* layout */
+  .page { max-width: 1400px; margin: 0 auto; padding: 24px 32px }
+  .section-title { font-size: 13px; font-weight: 700; color: #525252; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; margin-top: 32px }
+
+  /* stat cards */
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 4px }
+  .card { background: #fff; border-top: 3px solid #0F62FE; padding: 20px 24px }
+  .card .num { font-size: 36px; font-weight: 700; color: #0F62FE; line-height: 1 }
+  .card .label { font-size: 12px; color: #6F6F6F; margin-top: 6px }
+  .card.warn .num { color: #DA1E28 }
+  .card.warn { border-top-color: #DA1E28 }
+
+  /* run table */
+  .dtable { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff }
+  .dtable th { background: #001D6C; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 12px; white-space: nowrap }
+  .dtable td { padding: 9px 14px; border-bottom: 1px solid #E0E0E0; vertical-align: middle }
+  .dtable tr:hover td { background: #EDF5FF }
+  .table-wrap { overflow-x: auto; background: #fff }
+
+  /* charts */
+  .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px }
+  .chart-box { background: #fff; padding: 20px 24px }
+  .chart-box h3 { font-size: 14px; font-weight: 600; margin-bottom: 14px; color: #161616 }
+  .chart-wrap { height: 260px; position: relative }
+
+  /* impact cards */
+  .impact-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 4px }
+  .impact-card { background: #001D6C; padding: 20px 24px }
+  .impact-card .num { font-size: 30px; font-weight: 700; color: #fff; line-height: 1 }
+  .impact-card .label { font-size: 12px; color: #A6C8FF; margin-top: 6px }
+  .impact-card .note { font-size: 11px; color: #4589FF; margin-top: 8px; line-height: 1.4 }
+
+  /* alert box */
+  .alert { background: #FFF1F1; border-left: 4px solid #DA1E28; padding: 12px 16px; font-size: 13px; color: #DA1E28; margin-bottom: 16px }
+
+  /* who gets notified box */
+  .notify-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px }
+  .notify-card { background: #fff; padding: 18px 20px; border-left: 4px solid #0F62FE }
+  .notify-card h4 { font-size: 13px; font-weight: 700; color: #161616; margin-bottom: 6px }
+  .notify-card p { font-size: 12px; color: #525252; line-height: 1.5 }
+  .notify-card .role { font-size: 11px; color: #0F62FE; margin-bottom: 6px }
+
+  .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #E0E0E0; font-size: 11px; color: #A8A8A8 }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>NovaCart Pipeline Dashboard</h1>
+  <span class="sub">Generated 2026-10-14 18:31 UTC &nbsp;·&nbsp; 4 runs tracked &nbsp;·&nbsp; Indigo BioMed Data Operations</span>
+</div>
+
+<div class="page">
+
+  <div class="alert">⚠ 12 quarantined rows across all dates — review the table below and run <code>python -m scripts.reprocess_quarantine</code></div>
+
+  <!-- summary cards -->
+  <div class="section-title">Pipeline Health</div>
+  <div class="cards">
+    <div class="card">
+      <div class="num">4</div>
+      <div class="label">Total runs tracked</div>
+    </div>
+    <div class="card">
+      <div class="num">100%</div>
+      <div class="label">Success rate (4 / 4)</div>
+    </div>
+    <div class="card">
+      <div class="num">12</div>
+      <div class="label">Total rows ingested (Bronze)</div>
+    </div>
+    <div class="card warn">
+      <div class="num">12</div>
+      <div class="label">Total quarantined rows</div>
+    </div>
+  </div>
+
+  <!-- estimated savings -->
+  <div class="section-title">Estimated Cost &amp; Time Savings</div>
+  <div class="impact-cards">
+    <div class="impact-card">
+      <div class="num">$842</div>
+      <div class="label">Revenue protected</div>
+      <div class="note">4 bad order rows caught × ~$33 avg revenue at risk per row<br>(based on $400K / 12,000 case-study baseline)</div>
+    </div>
+    <div class="impact-card">
+      <div class="num">16.0 hrs</div>
+      <div class="label">Analyst time saved</div>
+      <div class="note">4 runs × 4 hrs manual ETL = 16 hrs estimated manual<br>Automated in 1.5s total</div>
+    </div>
+    <div class="impact-card">
+      <div class="num">$1,200</div>
+      <div class="label">Estimated cost saved</div>
+      <div class="note">16.0 hrs × $75/hr analyst rate<br>Scales linearly as run frequency increases</div>
+    </div>
+    <div class="impact-card">
+      <div class="num">75.0%</div>
+      <div class="label">Data quality rate</div>
+      <div class="note">Clean Gold rows ÷ total Bronze rows ingested<br>Target: &gt;99% sustained over 30 days</div>
+    </div>
+  </div>
+
+  <!-- run history table -->
+  <div class="section-title" style="margin-top:28px">Run History</div>
+  <div class="table-wrap">
+    <table class="dtable">
+      <thead>
+        <tr>
+          <th>Date</th><th>Status</th><th>Duration</th>
+          <th>Bronze Orders</th><th>Silver Orders</th><th>Gold Orders</th>
+          <th>Quarantined</th><th>Error</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2025-11-10</td>
+          <td><span style="background:#198038;color:#fff;padding:2px 10px;border-radius:3px;font-size:11px;font-weight:700">SUCCESS</span></td>
+          <td>0.014s</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td><span style="color:#DA1E28;font-weight:700">1</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>2025-11-09</td>
+          <td><span style="background:#198038;color:#fff;padding:2px 10px;border-radius:3px;font-size:11px;font-weight:700">SUCCESS</span></td>
+          <td>0.016s</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td><span style="color:#DA1E28;font-weight:700">1</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>2025-11-08</td>
+          <td><span style="background:#198038;color:#fff;padding:2px 10px;border-radius:3px;font-size:11px;font-weight:700">SUCCESS</span></td>
+          <td>0.020s</td>
+          <td>3</td>
+          <td>2</td>
+          <td>2</td>
+          <td><span style="color:#DA1E28;font-weight:700">2</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>2025-11-07</td>
+          <td><span style="background:#198038;color:#fff;padding:2px 10px;border-radius:3px;font-size:11px;font-weight:700">SUCCESS</span></td>
+          <td>1.438s</td>
+          <td>5</td>
+          <td>3</td>
+          <td>3</td>
+          <td><span style="color:#DA1E28;font-weight:700">8</span></td>
+          <td>—</td>
+        </tr></tbody>
+    </table>
+  </div>
+
+  <!-- charts -->
+  <div class="section-title">Quarantine &amp; Volume</div>
+  <div class="charts">
+    <div class="chart-box">
+      <h3>Quarantined Rows by Date</h3>
+      <div class="chart-wrap">
+        <canvas id="qChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-box">
+      <h3>Bronze vs Gold Row Counts by Date</h3>
+      <div class="chart-wrap">
+        <canvas id="volChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts" style="margin-top:20px">
+    <div class="chart-box">
+      <h3>Top Error Reasons</h3>
+      <div class="chart-wrap">
+        <canvas id="errChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-box" style="display:flex;flex-direction:column;justify-content:center">
+      <h3>Who Gets Notified?</h3>
+      <div class="notify-grid" style="display:flex;flex-direction:column;gap:12px;margin-top:4px">
+        <div class="notify-card">
+          <div class="role">Immediate (pipeline failure or quarantine rate &gt; 10%)</div>
+          <h4>Data Engineering Team</h4>
+          <p>Run <code>python -m scripts.reprocess_quarantine</code> to review bad rows, identify root cause, clear the queue, and re-run after source is fixed.</p>
+        </div>
+        <div class="notify-card" style="border-left-color:#001D6C">
+          <div class="role" style="color:#001D6C">Daily summary</div>
+          <h4>Riley Chen — Director of Data Platforms</h4>
+          <p>Receives a daily run health digest: success rate, quarantine counts, row volumes, and any schema drift warnings.</p>
+        </div>
+        <div class="notify-card" style="border-left-color:#198038">
+          <div class="role" style="color:#198038">On SLA breach (&gt; 1 hr delay)</div>
+          <h4>Alex Morgan — VP of Digital Health</h4>
+          <p>Escalation if Gold tables are not ready within the 1-hour SLA window after source file drop.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- recent bad rows -->
+  <div class="section-title">Recent Quarantined Rows</div>
+  <div class="table-wrap">
+    <table class="dtable"><thead><tr><th>_source</th><th>order_id</th><th>customer_id</th><th>email</th><th>status</th><th>quantity</th><th>city</th><th>_quarantine_reason</th><th>_quarantined_at</th></tr></thead><tbody><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">1 validation error for CustomerRow
+email
+  Value error, invalid email: eve-at-ex</td><td>2026-10-12T20:45:30.422905+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">orders</span></td><td>ORD-007</td><td>CUST-002</td><td></td><td>refunded</td><td>2</td><td></td><td style="color:#DA1E28;max-width:280px">1 validation error for OrderRow
+status
+  Value error, status 'refunded' not in {</td><td>2026-10-12T20:45:30.386846+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">1 validation error for CustomerRow
+email
+  Value error, invalid email: eve-at-ex</td><td>2026-10-12T19:00:24.545763+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">orders</span></td><td>ORD-007</td><td>CUST-002</td><td></td><td>refunded</td><td>2</td><td></td><td style="color:#DA1E28;max-width:280px">1 validation error for OrderRow
+status
+  Value error, status 'refunded' not in {</td><td>2026-10-12T19:00:24.502404+00:00</td></tr></tbody></table>
+  </div>
+
+  <div class="footer">
+    NovaCart, an Indigo BioMed Company &nbsp;·&nbsp;
+    Dashboard generated by <code>python -m scripts.dashboard</code> &nbsp;·&nbsp;
+    Data from <code>state/run_history.jsonl</code>, <code>logs/pipeline.jsonl</code>, <code>data/quarantine/</code>
+  </div>
+
+</div>
+
+<script>
+const BLUE  = '#0F62FE';
+const NAVY  = '#001D6C';
+const RED   = '#DA1E28';
+const GREEN = '#198038';
+const LBLUE = '#4589FF';
+
+// Quarantine by date (stacked bar)
+new Chart(document.getElementById('qChart'), {
+  type: 'bar',
+  data: {
+    labels: ["2025-11-07", "2025-11-08", "2025-11-09", "2025-11-10"],
+    datasets: [
+      { label: 'Orders quarantined',    data: [3, 1, 0, 0],    backgroundColor: RED,   stack: 'q' },
+      { label: 'Customers quarantined', data: [5, 1, 1, 1], backgroundColor: '#FF8389', stack: 'q' },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } },
+    scales: {
+      x: { stacked: true, grid: { display: false } },
+      y: { stacked: true, beginAtZero: true, ticks: { stepSize: 1 } }
+    }
+  }
+});
+
+// Volume chart (Bronze vs Gold)
+new Chart(document.getElementById('volChart'), {
+  type: 'bar',
+  data: {
+    labels: ["2025-11-07", "2025-11-08", "2025-11-09", "2025-11-10"],
+    datasets: [
+      { label: 'Bronze (ingested)', data: [5, 3, 2, 2], backgroundColor: NAVY },
+      { label: 'Gold (delivered)',  data: [3, 2, 2, 2],   backgroundColor: BLUE },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } },
+    scales: { x: { grid: { display: false } }, y: { beginAtZero: true } }
+  }
+});
+
+// Error reasons (horizontal bar)
+new Chart(document.getElementById('errChart'), {
+  type: 'bar',
+  data: {
+    labels: ["customers: Value error, invalid email: eve-at-example.co", "orders: Value error, status 'refunded' not in {'cance", "orders: Value error, status 'refunded' not in {'deliv"],
+    datasets: [{ label: 'Count', data: [2, 1, 1], backgroundColor: BLUE }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { beginAtZero: true, ticks: { stepSize: 1 } },
+      y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+</script>
+</body>
+</html>
