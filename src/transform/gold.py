@@ -2,7 +2,7 @@
 from __future__ import annotations
 import hashlib
 import logging
-from datetime import datetime, timezone
+from datetime import datetime, date, timedelta, timezone
 from pathlib import Path
 
 import pandas as pd
@@ -15,6 +15,66 @@ _HIGH_DATE = "9999-12-31"
 def _row_hash(row: pd.Series, fields: list[str]) -> str:
     val = "|".join(str(row.get(f, "")) for f in sorted(fields))
     return hashlib.md5(val.encode()).hexdigest()
+
+
+# ── dim_date: generated from fact_orders date range ──────────────────────────
+
+def build_dim_date(
+    gold_dir: Path,
+    logger: logging.Logger,
+) -> Path:
+    """
+    Build a calendar dimension covering every date in fact_orders.
+    Columns: date_key, year, quarter, month, month_name, week_of_year,
+             day_of_month, day_of_week, day_name, is_weekend.
+    Idempotent — rebuilt from scratch each run so new partitions extend it.
+    """
+    out_path = gold_dir / "dim_date.parquet"
+    fact_dir = gold_dir / "fact_orders"
+
+    # Collect all dates from partition folder names (date=YYYY-MM-DD)
+    partition_dates: list[date] = []
+    if fact_dir.exists():
+        for p in fact_dir.iterdir():
+            if p.is_dir() and p.name.startswith("date="):
+                try:
+                    partition_dates.append(
+                        datetime.strptime(p.name.replace("date=", ""), "%Y-%m-%d").date()
+                    )
+                except ValueError:
+                    pass
+
+    if not partition_dates:
+        log_event(logger, "INFO", "dim_date_skipped_no_facts")
+        return out_path
+
+    min_date = min(partition_dates)
+    max_date = max(partition_dates)
+
+    # Generate every date in range
+    rows = []
+    current = min_date
+    while current <= max_date:
+        rows.append({
+            "date_key":     current.isoformat(),
+            "year":         current.year,
+            "quarter":      (current.month - 1) // 3 + 1,
+            "month":        current.month,
+            "month_name":   current.strftime("%B"),
+            "week_of_year": int(current.strftime("%W")),
+            "day_of_month": current.day,
+            "day_of_week":  current.weekday(),          # 0=Monday, 6=Sunday
+            "day_name":     current.strftime("%A"),
+            "is_weekend":   current.weekday() >= 5,
+        })
+        current += timedelta(days=1)
+
+    df = pd.DataFrame(rows)
+    gold_dir.mkdir(parents=True, exist_ok=True)
+    df.to_parquet(out_path, index=False)
+    log_event(logger, "INFO", "dim_date_written", rows=len(df),
+              min_date=min_date.isoformat(), max_date=max_date.isoformat())
+    return out_path
 
 
 # ── dim_product: SCD Type 1 (overwrite) ─────────────────────────────────────

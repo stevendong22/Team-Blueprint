@@ -24,6 +24,7 @@ from src.transform.silver import (
 from src.transform.gold import (
     build_dim_product,
     build_dim_customer,
+    build_dim_date,
     build_fact_orders,
 )
 
@@ -59,9 +60,9 @@ def run_one_date(date_str: str, config: Config) -> dict:
         stage("silver_orders",    lambda: build_silver_orders(
             date_str, config.bronze, config.silver, config.quarantine, logger))
         stage("silver_customers", lambda: build_silver_customers(
-            config.bronze, config.silver, config.quarantine, logger))
+            config.bronze, config.silver, config.quarantine, logger, date_str))
         stage("silver_products",  lambda: build_silver_products(
-            config.bronze, config.silver, config.quarantine, logger))
+            config.bronze, config.silver, config.quarantine, logger, date_str))
 
         # ── Gold ──────────────────────────────────────────────────────────────
         stage("dim_product",   lambda: build_dim_product(
@@ -72,6 +73,8 @@ def run_one_date(date_str: str, config: Config) -> dict:
             logger))
         stage("fact_orders",   lambda: build_fact_orders(
             date_str, config.silver, config.gold, logger))
+        stage("dim_date",      lambda: build_dim_date(
+            config.gold, logger))
 
     except Exception as exc:
         status = "FAIL"
