@@ -47,7 +47,7 @@ def _load_quarantine(q_dir: Path, source: str | None = None) -> dict[str, pd.Dat
         if not src_path.is_dir():
             print(f"  ✗ Source '{src_path.name}' not found in quarantine.")
             continue
-        files = sorted(src_path.glob("*.parquet"))
+        files = sorted(src_path.rglob("*.parquet"))
         if not files:
             continue
         frames = []
@@ -113,7 +113,7 @@ def clear(q_dir: Path, source: str) -> None:
         print(f"\n  ✗ No quarantine folder found for source '{source}'.")
         return
 
-    files = list(src_path.glob("*.parquet"))
+    files = list(src_path.rglob("*.parquet"))
     if not files:
         print(f"\n  ✓ Quarantine for '{source}' is already empty.")
         return

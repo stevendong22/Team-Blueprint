@@ -65,12 +65,12 @@
 
 <div class="header">
   <h1>NovaCart Pipeline Dashboard</h1>
-  <span class="sub">Generated 2026-10-14 19:34 UTC &nbsp;·&nbsp; 4 runs tracked &nbsp;·&nbsp; Indigo BioMed Data Operations</span>
+  <span class="sub">Generated 2026-10-15 19:57 UTC &nbsp;·&nbsp; 4 runs tracked &nbsp;·&nbsp; Indigo BioMed Data Operations</span>
 </div>
 
 <div class="page">
 
-  <div class="alert">⚠ 13 quarantined rows across all dates — review the table below and run <code>python -m scripts.reprocess_quarantine</code></div>
+  <div class="alert">⚠ 6 quarantined rows across all dates — review the table below and run <code>python -m scripts.reprocess_quarantine</code></div>
 
   <!-- summary cards -->
   <div class="section-title">Pipeline Health</div>
@@ -88,28 +88,18 @@
       <div class="label">Total rows ingested (Bronze)</div>
     </div>
     <div class="card warn">
-      <div class="num">13</div>
+      <div class="num">6</div>
       <div class="label">Total quarantined rows</div>
     </div>
   </div>
 
   <!-- estimated savings -->
-  <div class="section-title">Estimated Cost &amp; Time Savings</div>
-  <div class="impact-cards">
-    <div class="impact-card">
-      <div class="num">$842</div>
-      <div class="label">Revenue protected</div>
-      <div class="note">4 bad order rows caught × ~$33 avg revenue at risk per row<br>(based on $400K / 12,000 case-study baseline)</div>
-    </div>
+  <div class="section-title">Pipeline Efficiency</div>
+  <div class="impact-cards" style="grid-template-columns: repeat(2, 1fr)">
     <div class="impact-card">
       <div class="num">16.0 hrs</div>
       <div class="label">Analyst time saved</div>
-      <div class="note">4 runs × 4 hrs manual ETL = 16 hrs estimated manual<br>Automated in 1.5s total</div>
-    </div>
-    <div class="impact-card">
-      <div class="num">$1,200</div>
-      <div class="label">Estimated cost saved</div>
-      <div class="note">16.0 hrs × $75/hr analyst rate<br>Scales linearly as run frequency increases</div>
+      <div class="note">4 runs × 4 hrs manual ETL = 16 hrs estimated manual<br>Automated in 0.3s total</div>
     </div>
     <div class="impact-card">
       <div class="num">75.0%</div>
@@ -133,7 +123,17 @@
         <tr>
           <td>2025-11-10</td>
           <td><span style="background:#198038;color:#fff;padding:2px 10px;border-radius:3px;font-size:11px;font-weight:700">SUCCESS</span></td>
-          <td>0.014s</td>
+          <td>0.065s</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td><span style="color:#DA1E28;font-weight:700">1</span></td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>2025-11-09</td>
+          <td><span style="background:#198038;color:#fff;padding:2px 10px;border-radius:3px;font-size:11px;font-weight:700">SUCCESS</span></td>
+          <td>0.080s</td>
           <td>2</td>
           <td>2</td>
           <td>2</td>
@@ -141,19 +141,9 @@
           <td>—</td>
         </tr>
         <tr>
-          <td>2025-11-09</td>
-          <td><span style="background:#198038;color:#fff;padding:2px 10px;border-radius:3px;font-size:11px;font-weight:700">SUCCESS</span></td>
-          <td>0.061s</td>
-          <td>2</td>
-          <td>2</td>
-          <td>2</td>
-          <td><span style="color:#DA1E28;font-weight:700">3</span></td>
-          <td>—</td>
-        </tr>
-        <tr>
           <td>2025-11-08</td>
           <td><span style="background:#198038;color:#fff;padding:2px 10px;border-radius:3px;font-size:11px;font-weight:700">SUCCESS</span></td>
-          <td>0.020s</td>
+          <td>0.051s</td>
           <td>3</td>
           <td>2</td>
           <td>2</td>
@@ -163,11 +153,11 @@
         <tr>
           <td>2025-11-07</td>
           <td><span style="background:#198038;color:#fff;padding:2px 10px;border-radius:3px;font-size:11px;font-weight:700">SUCCESS</span></td>
-          <td>1.438s</td>
+          <td>0.072s</td>
           <td>5</td>
           <td>3</td>
           <td>3</td>
-          <td><span style="color:#DA1E28;font-weight:700">8</span></td>
+          <td><span style="color:#DA1E28;font-weight:700">3</span></td>
           <td>—</td>
         </tr></tbody>
     </table>
@@ -222,15 +212,7 @@
   <!-- recent bad rows -->
   <div class="section-title">Recent Quarantined Rows</div>
   <div class="table-wrap">
-    <table class="dtable"><thead><tr><th>_source</th><th>order_id</th><th>customer_id</th><th>email</th><th>status</th><th>quantity</th><th>city</th><th>_quarantine_reason</th><th>_quarantined_at</th></tr></thead><tbody><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">CustomerRow: Invalid email: eve-at-example.com</td><td>2026-10-14T19:34:07.037792+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">1 validation error for CustomerRow
-email
-  Value error, invalid email: eve-at-ex</td><td>2026-10-12T20:45:30.422905+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">orders</span></td><td>ORD-007</td><td>CUST-002</td><td></td><td>refunded</td><td>2</td><td></td><td style="color:#DA1E28;max-width:280px">1 validation error for OrderRow
-status
-  Value error, status 'refunded' not in {</td><td>2026-10-12T20:45:30.386846+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">1 validation error for CustomerRow
-email
-  Value error, invalid email: eve-at-ex</td><td>2026-10-12T19:00:24.545763+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">orders</span></td><td>ORD-007</td><td>CUST-002</td><td></td><td>refunded</td><td>2</td><td></td><td style="color:#DA1E28;max-width:280px">1 validation error for OrderRow
-status
-  Value error, status 'refunded' not in {</td><td>2026-10-12T19:00:24.502404+00:00</td></tr></tbody></table>
+    <table class="dtable"><thead><tr><th>_source</th><th>order_id</th><th>customer_id</th><th>email</th><th>status</th><th>quantity</th><th>city</th><th>_quarantine_reason</th><th>_quarantined_at</th></tr></thead><tbody><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">CustomerRow: Invalid email: eve-at-example.com</td><td>2026-10-15T19:52:05.106034+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">CustomerRow: Invalid email: eve-at-example.com</td><td>2026-10-15T19:36:24.789875+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">orders</span></td><td>ORD-007</td><td>CUST-002</td><td></td><td>refunded</td><td>2</td><td></td><td style="color:#DA1E28;max-width:280px">OrderRow: Invalid status: refunded</td><td>2026-10-15T19:36:24.786239+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">CustomerRow: Invalid email: eve-at-example.com</td><td>2026-10-15T19:36:24.460590+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">orders</span></td><td>ORD-004</td><td>CUST-001</td><td></td><td>pending</td><td>0</td><td></td><td style="color:#DA1E28;max-width:280px">OrderRow: quantity must be > 0, got 0</td><td>2026-10-15T19:36:24.456657+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">CustomerRow: Invalid email: eve-at-example.com</td><td>2026-10-15T19:32:28.526730+00:00</td></tr></tbody></table>
   </div>
 
   <div class="footer">
@@ -254,8 +236,8 @@ new Chart(document.getElementById('qChart'), {
   data: {
     labels: ["2025-11-07", "2025-11-08", "2025-11-09", "2025-11-10"],
     datasets: [
-      { label: 'Orders quarantined',    data: [3, 1, 0, 0],    backgroundColor: RED,   stack: 'q' },
-      { label: 'Customers quarantined', data: [5, 1, 3, 0], backgroundColor: '#FF8389', stack: 'q' },
+      { label: 'Orders quarantined',    data: [1, 1, 0, 0],    backgroundColor: RED,   stack: 'q' },
+      { label: 'Customers quarantined', data: [2, 1, 0, 1], backgroundColor: '#FF8389', stack: 'q' },
     ]
   },
   options: {
@@ -289,8 +271,8 @@ new Chart(document.getElementById('volChart'), {
 new Chart(document.getElementById('errChart'), {
   type: 'bar',
   data: {
-    labels: ["customers: Value error, invalid email: eve-at-example.co", "customers: CustomerRow: Invalid email: eve-at-example.co", "orders: Value error, status 'refunded' not in {'cance", "orders: Value error, status 'refunded' not in {'deliv"],
-    datasets: [{ label: 'Count', data: [2, 1, 1, 1], backgroundColor: BLUE }]
+    labels: ["customers: CustomerRow: Invalid email: eve-at-example.co", "orders: OrderRow: Invalid status: refunded", "orders: OrderRow: quantity must be > 0, got 0"],
+    datasets: [{ label: 'Count', data: [4, 1, 1], backgroundColor: BLUE }]
   },
   options: {
     indexAxis: 'y',

@@ -1,0 +1,67 @@
+{"ts": "2026-10-15T19:32:28.466592+00:00", "event": "orders_ingested", "date": "2025-11-09", "rows": 2}
+{"ts": "2026-10-15T19:32:28.490286+00:00", "event": "orders_bronze_written", "path": "data/bronze/orders/date=2025-11-09/data.parquet", "rows": 2}
+{"ts": "2026-10-15T19:32:28.490939+00:00", "event": "customers_ingested", "rows": 5}
+{"ts": "2026-10-15T19:32:28.492071+00:00", "event": "customers_bronze_written", "path": "data/bronze/customers/data.parquet", "rows": 5}
+{"ts": "2026-10-15T19:32:28.492138+00:00", "event": "products_watermark_read", "watermark": "1970-01-01T00:00:00"}
+{"ts": "2026-10-15T19:32:28.493334+00:00", "event": "products_ingested", "rows": 4, "since": "1970-01-01T00:00:00"}
+{"ts": "2026-10-15T19:32:28.494732+00:00", "event": "products_watermark_advanced", "new_watermark": "2025-11-05T11:15:00"}
+{"ts": "2026-10-15T19:32:28.525247+00:00", "event": "silver_orders_written", "rows": 2, "date": "2025-11-09"}
+{"ts": "2026-10-15T19:32:28.527945+00:00", "event": "customers_quarantined", "count": 1}
+{"ts": "2026-10-15T19:32:28.529014+00:00", "event": "silver_customers_written", "rows": 4}
+{"ts": "2026-10-15T19:32:28.531769+00:00", "event": "silver_products_written", "rows": 4}
+{"ts": "2026-10-15T19:32:28.534729+00:00", "event": "dim_product_written", "rows": 4}
+{"ts": "2026-10-15T19:32:28.540050+00:00", "event": "dim_customer_initial_load", "rows": 4}
+{"ts": "2026-10-15T19:32:28.543823+00:00", "event": "fact_orders_written", "date": "2025-11-09", "rows": 2}
+{"ts": "2026-10-15T19:32:28.545205+00:00", "event": "dim_date_written", "rows": 1, "min_date": "2025-11-09", "max_date": "2025-11-09"}
+{"ts": "2026-10-15T19:32:28.545421+00:00", "event": "pipeline_end", "date": "2025-11-09", "status": "SUCCESS", "error": null, "started_at": "2026-10-15T19:32:28.465280", "finished_at": "2026-10-15T19:32:28.545273", "duration_sec": 0.079993}
+{"ts": "2026-10-15T19:36:24.403614+00:00", "event": "orders_ingested", "date": "2025-11-07", "rows": 5}
+{"ts": "2026-10-15T19:36:24.426675+00:00", "event": "orders_bronze_written", "path": "data/bronze/orders/date=2025-11-07/data.parquet", "rows": 5}
+{"ts": "2026-10-15T19:36:24.427031+00:00", "event": "customers_ingested", "rows": 5}
+{"ts": "2026-10-15T19:36:24.428214+00:00", "event": "customers_bronze_written", "path": "data/bronze/customers/data.parquet", "rows": 5}
+{"ts": "2026-10-15T19:36:24.428440+00:00", "event": "products_watermark_read", "watermark": "2025-11-05T11:15:00"}
+{"ts": "2026-10-15T19:36:24.429637+00:00", "event": "products_ingested", "rows": 0, "since": "2025-11-05T11:15:00"}
+{"ts": "2026-10-15T19:36:24.429673+00:00", "event": "products_no_new_rows"}
+{"ts": "2026-10-15T19:36:24.458140+00:00", "event": "orders_quarantined", "count": 1}
+{"ts": "2026-10-15T19:36:24.458825+00:00", "event": "orders_deduped", "dropped": 1}
+{"ts": "2026-10-15T19:36:24.459617+00:00", "event": "silver_orders_written", "rows": 3, "date": "2025-11-07"}
+{"ts": "2026-10-15T19:36:24.461679+00:00", "event": "customers_quarantined", "count": 1}
+{"ts": "2026-10-15T19:36:24.462794+00:00", "event": "silver_customers_written", "rows": 4}
+{"ts": "2026-10-15T19:36:24.464771+00:00", "event": "silver_products_written", "rows": 4}
+{"ts": "2026-10-15T19:36:24.467235+00:00", "event": "dim_product_written", "rows": 4}
+{"ts": "2026-10-15T19:36:24.470450+00:00", "event": "dim_customer_written", "rows": 4, "new": 0}
+{"ts": "2026-10-15T19:36:24.473374+00:00", "event": "fact_orders_written", "date": "2025-11-07", "rows": 3}
+{"ts": "2026-10-15T19:36:24.474721+00:00", "event": "dim_date_written", "rows": 3, "min_date": "2025-11-07", "max_date": "2025-11-09"}
+{"ts": "2026-10-15T19:36:24.474988+00:00", "event": "pipeline_end", "date": "2025-11-07", "status": "SUCCESS", "error": null, "started_at": "2026-10-15T19:36:24.402307", "finished_at": "2026-10-15T19:36:24.474785", "duration_sec": 0.072478}
+{"ts": "2026-10-15T19:36:24.755568+00:00", "event": "orders_ingested", "date": "2025-11-08", "rows": 3}
+{"ts": "2026-10-15T19:36:24.767860+00:00", "event": "orders_bronze_written", "path": "data/bronze/orders/date=2025-11-08/data.parquet", "rows": 3}
+{"ts": "2026-10-15T19:36:24.768179+00:00", "event": "customers_ingested", "rows": 5}
+{"ts": "2026-10-15T19:36:24.768963+00:00", "event": "customers_bronze_written", "path": "data/bronze/customers/data.parquet", "rows": 5}
+{"ts": "2026-10-15T19:36:24.769056+00:00", "event": "products_watermark_read", "watermark": "2025-11-05T11:15:00"}
+{"ts": "2026-10-15T19:36:24.770277+00:00", "event": "products_ingested", "rows": 0, "since": "2025-11-05T11:15:00"}
+{"ts": "2026-10-15T19:36:24.770317+00:00", "event": "products_no_new_rows"}
+{"ts": "2026-10-15T19:36:24.787513+00:00", "event": "orders_quarantined", "count": 1}
+{"ts": "2026-10-15T19:36:24.788673+00:00", "event": "silver_orders_written", "rows": 2, "date": "2025-11-08"}
+{"ts": "2026-10-15T19:36:24.790886+00:00", "event": "customers_quarantined", "count": 1}
+{"ts": "2026-10-15T19:36:24.791888+00:00", "event": "silver_customers_written", "rows": 4}
+{"ts": "2026-10-15T19:36:24.793583+00:00", "event": "silver_products_written", "rows": 4}
+{"ts": "2026-10-15T19:36:24.795665+00:00", "event": "dim_product_written", "rows": 4}
+{"ts": "2026-10-15T19:36:24.799413+00:00", "event": "dim_customer_written", "rows": 4, "new": 0}
+{"ts": "2026-10-15T19:36:24.802280+00:00", "event": "fact_orders_written", "date": "2025-11-08", "rows": 2}
+{"ts": "2026-10-15T19:36:24.803133+00:00", "event": "dim_date_written", "rows": 3, "min_date": "2025-11-07", "max_date": "2025-11-09"}
+{"ts": "2026-10-15T19:36:24.803244+00:00", "event": "pipeline_end", "date": "2025-11-08", "status": "SUCCESS", "error": null, "started_at": "2026-10-15T19:36:24.752493", "finished_at": "2026-10-15T19:36:24.803168", "duration_sec": 0.050675}
+{"ts": "2026-10-15T19:52:05.058289+00:00", "event": "orders_ingested", "date": "2025-11-10", "rows": 2}
+{"ts": "2026-10-15T19:52:05.078358+00:00", "event": "orders_bronze_written", "path": "data/bronze/orders/date=2025-11-10/data.parquet", "rows": 2}
+{"ts": "2026-10-15T19:52:05.078688+00:00", "event": "customers_ingested", "rows": 5}
+{"ts": "2026-10-15T19:52:05.079698+00:00", "event": "customers_bronze_written", "path": "data/bronze/customers/data.parquet", "rows": 5}
+{"ts": "2026-10-15T19:52:05.079907+00:00", "event": "products_watermark_read", "watermark": "2025-11-05T11:15:00"}
+{"ts": "2026-10-15T19:52:05.081075+00:00", "event": "products_ingested", "rows": 0, "since": "2025-11-05T11:15:00"}
+{"ts": "2026-10-15T19:52:05.081109+00:00", "event": "products_no_new_rows"}
+{"ts": "2026-10-15T19:52:05.104986+00:00", "event": "silver_orders_written", "rows": 2, "date": "2025-11-10"}
+{"ts": "2026-10-15T19:52:05.107108+00:00", "event": "customers_quarantined", "count": 1}
+{"ts": "2026-10-15T19:52:05.108122+00:00", "event": "silver_customers_written", "rows": 4}
+{"ts": "2026-10-15T19:52:05.109692+00:00", "event": "silver_products_written", "rows": 4}
+{"ts": "2026-10-15T19:52:05.111788+00:00", "event": "dim_product_written", "rows": 4}
+{"ts": "2026-10-15T19:52:05.116673+00:00", "event": "dim_customer_written", "rows": 4, "new": 0}
+{"ts": "2026-10-15T19:52:05.120488+00:00", "event": "fact_orders_written", "date": "2025-11-10", "rows": 2}
+{"ts": "2026-10-15T19:52:05.121603+00:00", "event": "dim_date_written", "rows": 4, "min_date": "2025-11-07", "max_date": "2025-11-10"}
+{"ts": "2026-10-15T19:52:05.121843+00:00", "event": "pipeline_end", "date": "2025-11-10", "status": "SUCCESS", "error": null, "started_at": "2026-10-15T19:52:05.056974", "finished_at": "2026-10-15T19:52:05.121652", "duration_sec": 0.064678}

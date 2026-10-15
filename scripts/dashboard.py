@@ -440,22 +440,12 @@ def render_html(
   </div>
 
   <!-- estimated savings -->
-  <div class="section-title">Estimated Cost &amp; Time Savings</div>
-  <div class="impact-cards">
-    <div class="impact-card">
-      <div class="num">${impact["revenue_protected"]:,.0f}</div>
-      <div class="label">Revenue protected</div>
-      <div class="note">{impact["total_q_orders"]} bad order rows caught × ~$33 avg revenue at risk per row<br>(based on $400K / 12,000 case-study baseline)</div>
-    </div>
+  <div class="section-title">Pipeline Efficiency</div>
+  <div class="impact-cards" style="grid-template-columns: repeat(2, 1fr)">
     <div class="impact-card">
       <div class="num">{impact["hrs_saved"]:.1f} hrs</div>
       <div class="label">Analyst time saved</div>
       <div class="note">{impact["n_runs"]} runs × 4 hrs manual ETL = {impact["manual_hrs"]:.0f} hrs estimated manual<br>Automated in {impact["total_auto_sec"]:.1f}s total</div>
-    </div>
-    <div class="impact-card">
-      <div class="num">${impact["cost_saved"]:,.0f}</div>
-      <div class="label">Estimated cost saved</div>
-      <div class="note">{impact["hrs_saved"]:.1f} hrs × $75/hr analyst rate<br>Scales linearly as run frequency increases</div>
     </div>
     <div class="impact-card">
       <div class="num">{impact["quality_rate"]:.1f}%</div>
