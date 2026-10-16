@@ -162,6 +162,34 @@ def load_quarantine_rows() -> list[dict]:
     return rows
 
 
+def quarantine_counts_by_date() -> dict[str, dict]:
+    """Read actual parquet files and return {date: {quarantine_orders, quarantine_customers}}."""
+    import re
+    result: dict[str, dict] = defaultdict(lambda: {"quarantine_orders": 0, "quarantine_customers": 0})
+    if not HAS_PANDAS:
+        return result
+    pattern = str(ROOT / "data/quarantine/**/*.parquet")
+    for path in glob.glob(pattern, recursive=True):
+        if "archived" in path:
+            continue
+        # Extract date from path: dt=2025-11-09
+        m = re.search(r"dt=(\d{4}-\d{2}-\d{2})", path)
+        if not m:
+            continue
+        date = m.group(1)
+        source = Path(path).parent.parent.name  # orders or customers
+        try:
+            df = pd.read_parquet(path)
+            count = len(df)
+            if source == "orders":
+                result[date]["quarantine_orders"] += count
+            elif source == "customers":
+                result[date]["quarantine_customers"] += count
+        except Exception:
+            pass
+    return result
+
+
 def error_reason_summary(rows: list[dict]) -> list[dict]:
     """Top error reasons with count and source."""
     reason_col = "_quarantine_reason"
@@ -268,6 +296,7 @@ def render_html(
     recent: list[dict],
     generated_at: str,
     impact: dict,
+    total_q_actual: int = 0,
 ) -> str:
 
     # Summary stats
@@ -275,7 +304,7 @@ def render_html(
     success_count = sum(1 for r in runs if r.get("status") == "SUCCESS")
     success_rate = round(success_count / total_runs * 100) if total_runs else 0
     total_bronze = sum(c["bronze_orders"] for c in counts.values())
-    total_q = sum(c["quarantine_orders"] + c["quarantine_customers"] for c in counts.values())
+    total_q = total_q_actual
 
     # Chart data
     dates = sorted(counts.keys())
@@ -450,7 +479,7 @@ def render_html(
     <div class="impact-card">
       <div class="num">{impact["quality_rate"]:.1f}%</div>
       <div class="label">Data quality rate</div>
-      <div class="note">Clean Gold rows ÷ total Bronze rows ingested<br>Target: &gt;99% sustained over 30 days</div>
+      <div class="note">Clean Gold rows ÷ total Bronze rows ingested</div>
     </div>
   </div>
 
@@ -615,6 +644,14 @@ def main(argv: list[str] | None = None) -> int:
 
     print("Reading quarantine files...")
     q_rows = load_quarantine_rows()
+    q_by_date = quarantine_counts_by_date()
+    # Merge real parquet counts into counts dict (overrides log-derived quarantine counts)
+    for d, qc in q_by_date.items():
+        if d not in counts:
+            counts[d] = {"bronze_orders": 0, "silver_orders": 0, "gold_orders": 0,
+                         "quarantine_orders": 0, "quarantine_customers": 0}
+        counts[d]["quarantine_orders"]    = qc["quarantine_orders"]
+        counts[d]["quarantine_customers"] = qc["quarantine_customers"]
     if not HAS_PANDAS:
         print("  pandas not available — bad-row detail table will be empty")
     else:
@@ -630,7 +667,7 @@ def main(argv: list[str] | None = None) -> int:
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     print(f"Rendering dashboard → {out_path}")
-    html = render_html(runs, counts, err_summary, recent, generated_at, impact)
+    html = render_html(runs, counts, err_summary, recent, generated_at, impact, total_q_actual=len(q_rows))
     out_path.write_text(html, encoding="utf-8")
 
     print(f"✓ Done. Open in browser: {out_path}")

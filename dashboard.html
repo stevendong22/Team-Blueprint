@@ -65,7 +65,7 @@
 
 <div class="header">
   <h1>NovaCart Pipeline Dashboard</h1>
-  <span class="sub">Generated 2026-10-15 19:57 UTC &nbsp;·&nbsp; 4 runs tracked &nbsp;·&nbsp; Indigo BioMed Data Operations</span>
+  <span class="sub">Generated 2026-10-15 20:15 UTC &nbsp;·&nbsp; 4 runs tracked &nbsp;·&nbsp; Indigo BioMed Data Operations</span>
 </div>
 
 <div class="page">
@@ -99,12 +99,12 @@
     <div class="impact-card">
       <div class="num">16.0 hrs</div>
       <div class="label">Analyst time saved</div>
-      <div class="note">4 runs × 4 hrs manual ETL = 16 hrs estimated manual<br>Automated in 0.3s total</div>
+      <div class="note">4 runs × 4 hrs manual ETL = 16 hrs estimated manual<br>Automated in 0.2s total</div>
     </div>
     <div class="impact-card">
       <div class="num">75.0%</div>
       <div class="label">Data quality rate</div>
-      <div class="note">Clean Gold rows ÷ total Bronze rows ingested<br>Target: &gt;99% sustained over 30 days</div>
+      <div class="note">Clean Gold rows ÷ total Bronze rows ingested</div>
     </div>
   </div>
 
@@ -123,7 +123,7 @@
         <tr>
           <td>2025-11-10</td>
           <td><span style="background:#198038;color:#fff;padding:2px 10px;border-radius:3px;font-size:11px;font-weight:700">SUCCESS</span></td>
-          <td>0.065s</td>
+          <td>0.050s</td>
           <td>2</td>
           <td>2</td>
           <td>2</td>
@@ -133,17 +133,17 @@
         <tr>
           <td>2025-11-09</td>
           <td><span style="background:#198038;color:#fff;padding:2px 10px;border-radius:3px;font-size:11px;font-weight:700">SUCCESS</span></td>
-          <td>0.080s</td>
+          <td>0.049s</td>
           <td>2</td>
           <td>2</td>
           <td>2</td>
-          <td>0</td>
+          <td><span style="color:#DA1E28;font-weight:700">1</span></td>
           <td>—</td>
         </tr>
         <tr>
           <td>2025-11-08</td>
           <td><span style="background:#198038;color:#fff;padding:2px 10px;border-radius:3px;font-size:11px;font-weight:700">SUCCESS</span></td>
-          <td>0.051s</td>
+          <td>0.056s</td>
           <td>3</td>
           <td>2</td>
           <td>2</td>
@@ -153,11 +153,11 @@
         <tr>
           <td>2025-11-07</td>
           <td><span style="background:#198038;color:#fff;padding:2px 10px;border-radius:3px;font-size:11px;font-weight:700">SUCCESS</span></td>
-          <td>0.072s</td>
+          <td>0.052s</td>
           <td>5</td>
           <td>3</td>
           <td>3</td>
-          <td><span style="color:#DA1E28;font-weight:700">3</span></td>
+          <td><span style="color:#DA1E28;font-weight:700">2</span></td>
           <td>—</td>
         </tr></tbody>
     </table>
@@ -212,7 +212,7 @@
   <!-- recent bad rows -->
   <div class="section-title">Recent Quarantined Rows</div>
   <div class="table-wrap">
-    <table class="dtable"><thead><tr><th>_source</th><th>order_id</th><th>customer_id</th><th>email</th><th>status</th><th>quantity</th><th>city</th><th>_quarantine_reason</th><th>_quarantined_at</th></tr></thead><tbody><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">CustomerRow: Invalid email: eve-at-example.com</td><td>2026-10-15T19:52:05.106034+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">CustomerRow: Invalid email: eve-at-example.com</td><td>2026-10-15T19:36:24.789875+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">orders</span></td><td>ORD-007</td><td>CUST-002</td><td></td><td>refunded</td><td>2</td><td></td><td style="color:#DA1E28;max-width:280px">OrderRow: Invalid status: refunded</td><td>2026-10-15T19:36:24.786239+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">CustomerRow: Invalid email: eve-at-example.com</td><td>2026-10-15T19:36:24.460590+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">orders</span></td><td>ORD-004</td><td>CUST-001</td><td></td><td>pending</td><td>0</td><td></td><td style="color:#DA1E28;max-width:280px">OrderRow: quantity must be > 0, got 0</td><td>2026-10-15T19:36:24.456657+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">CustomerRow: Invalid email: eve-at-example.com</td><td>2026-10-15T19:32:28.526730+00:00</td></tr></tbody></table>
+    <table class="dtable"><thead><tr><th>_source</th><th>order_id</th><th>customer_id</th><th>email</th><th>status</th><th>quantity</th><th>city</th><th>_quarantine_reason</th><th>_quarantined_at</th></tr></thead><tbody><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">CustomerRow: Invalid email: eve-at-example.com</td><td>2026-10-15T20:09:21.038202+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">CustomerRow: Invalid email: eve-at-example.com</td><td>2026-10-15T20:09:20.701990+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">CustomerRow: Invalid email: eve-at-example.com</td><td>2026-10-15T20:09:20.365843+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">orders</span></td><td>ORD-007</td><td>CUST-002</td><td></td><td>refunded</td><td>2</td><td></td><td style="color:#DA1E28;max-width:280px">OrderRow: Invalid status: refunded</td><td>2026-10-15T20:09:20.362098+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">customers</span></td><td></td><td>CUST-005</td><td>eve-at-example.com</td><td></td><td></td><td>Paris</td><td style="color:#DA1E28;max-width:280px">CustomerRow: Invalid email: eve-at-example.com</td><td>2026-10-15T20:09:19.964480+00:00</td></tr><tr><td><span style="background:#EDF5FF;color:#0043CE;padding:2px 8px;border-radius:3px;font-size:11px">orders</span></td><td>ORD-004</td><td>CUST-001</td><td></td><td>pending</td><td>0</td><td></td><td style="color:#DA1E28;max-width:280px">OrderRow: quantity must be > 0, got 0</td><td>2026-10-15T20:09:19.960026+00:00</td></tr></tbody></table>
   </div>
 
   <div class="footer">
@@ -237,7 +237,7 @@ new Chart(document.getElementById('qChart'), {
     labels: ["2025-11-07", "2025-11-08", "2025-11-09", "2025-11-10"],
     datasets: [
       { label: 'Orders quarantined',    data: [1, 1, 0, 0],    backgroundColor: RED,   stack: 'q' },
-      { label: 'Customers quarantined', data: [2, 1, 0, 1], backgroundColor: '#FF8389', stack: 'q' },
+      { label: 'Customers quarantined', data: [1, 1, 1, 1], backgroundColor: '#FF8389', stack: 'q' },
     ]
   },
   options: {
